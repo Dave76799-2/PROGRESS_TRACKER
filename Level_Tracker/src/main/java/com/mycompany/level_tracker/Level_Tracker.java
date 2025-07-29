@@ -4,10 +4,7 @@
 
 package com.mycompany.level_tracker;
 
-/**
- *
- * @author jairi
- */
+
 public class Level_Tracker {
 
     public static void main(String[] args) {

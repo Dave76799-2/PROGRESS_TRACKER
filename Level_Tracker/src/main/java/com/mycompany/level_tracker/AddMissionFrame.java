@@ -21,6 +21,7 @@ public class AddMissionFrame extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setType(java.awt.Window.Type.POPUP);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -53,7 +54,7 @@ public class AddMissionFrame extends javax.swing.JFrame {
         String missionText = jTextField1.getText();
 
         parentFrame.createAndSaveMission(missionText);
-        parentFrame.updateAll();
+        Functions.updateAll(parentFrame.jLabel4, parentFrame.jProgressBar1);
 
         parentFrame.setVisible(true);
         this.dispose();

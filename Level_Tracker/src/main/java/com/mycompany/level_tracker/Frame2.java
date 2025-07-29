@@ -12,10 +12,10 @@ public class Frame2 extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Frame2.class.getName());
     
-    Functions func = new Functions();
     
     public Frame2() {
         initComponents();
+        Functions.updateAll(jLabel4, jProgressBar1);
         setLocationRelativeTo(null);
     }
 
@@ -150,22 +150,7 @@ public class Frame2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    public void checkProgressBar() {
-        int progress = func.exp % 10;
-        jProgressBar1.setValue(progress);
-    }
-    
-    public void updateLevelText() {
-        jLabel4.setText("LEVEL: " + func.level);
-    }
-    
-    public void updateAll() {    
-        func.checkLevel();
-        func.saveExpLevel();
-        updateLevelText();
-        checkProgressBar();
-    }
+
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         Frame1 f1 = new Frame1();
@@ -174,18 +159,18 @@ public class Frame2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
     
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        func.addExp();
-        updateAll();
+        Functions.addExp();
+        Functions.updateAll(jLabel4, jProgressBar1);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        func.addExp();
-        updateAll();
+        Functions.addExp();
+        Functions.updateAll(jLabel4, jProgressBar1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        func.addExp();
-        updateAll();
+        Functions.addExp();
+        Functions.updateAll(jLabel4, jProgressBar1);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

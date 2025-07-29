@@ -11,22 +11,21 @@ public class Frame3 extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Frame2.class.getName());
 
-    Functions func = new Functions();
-
     public Frame3() {
         initComponents();
         jScrollPane2.setViewportView(jPanel2);
         setLocationRelativeTo(null);
         loadMissionsFromFile();
+        Functions.updateAll(jLabel4, jProgressBar1);
     }
 
     private void loadMissionsFromFile() {
-        jPanel2.removeAll();        // Clear old buttons
-        missionCount = 0;           // Reset count
+        jPanel2.removeAll();   
+        missionCount = 0;           
         for (String mission : FileSaver.loadMissions()) {
             addMissionButton(mission);
         }
-        jPanel2.revalidate();       // Refresh the panel
+        jPanel2.revalidate();       
         jPanel2.repaint();
     }
 
@@ -125,22 +124,6 @@ public class Frame3 extends javax.swing.JFrame {
     static boolean missionAdded = false;
     static int missionCount = 0;
 
-    public void checkProgressBar() {
-        int progress = func.exp % 10;
-        jProgressBar1.setValue(progress);
-    }
-
-    public void updateLevelText() {
-        jLabel4.setText("LEVEL: " + func.level);
-    }
-
-    public void updateAll() {
-        func.checkLevel();
-        func.saveExpLevel();
-        updateLevelText();
-        checkProgressBar();
-    }
-
     private void addMissionButton(String mission) {
         JButton newTask = new JButton(mission);
         newTask.setBackground(new java.awt.Color(255, 255, 204));
@@ -154,8 +137,8 @@ public class Frame3 extends javax.swing.JFrame {
         newTask.addActionListener(e -> {
             FileSaver.removeMission(mission); 
             loadMissionsFromFile();  
-            func.exp += 1;
-            updateAll();
+            Functions.exp += 1;
+            Functions.updateAll(jLabel4, jProgressBar1);
         });
 
         jPanel2.add(newTask, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, yPosition, 350, 51));
@@ -202,16 +185,16 @@ public class Frame3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton4;
+    static javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar jProgressBar1;
+    public javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

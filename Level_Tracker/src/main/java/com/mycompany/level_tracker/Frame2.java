@@ -4,22 +4,23 @@ package com.mycompany.level_tracker;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 import com.mycompany.level_tracker.*;
 
-
 public class Frame2 extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Frame2.class.getName());
     
+    int postStreak;
+    int workoutStreak;
+    int studyStreak;
     
     public Frame2() {
         initComponents();
+        loadStreak();
         Functions.updateAll(jLabel4, jProgressBar1);
         setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,7 +31,6 @@ public class Frame2 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -60,26 +60,17 @@ public class Frame2 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 0, 51));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setText("STUDY STREAK: ");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 370, 40));
 
         jLabel5.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 0, 51));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel5.setText("POST / DOCUMENT DAY STREAK: ");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 370, 40));
 
         jLabel6.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 0, 51));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel6.setText("WORKOUT STREAK: ");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 370, 40));
-
-        jLabel7.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(51, 0, 51));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("STUDY STREAK: ");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 370, 40));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 390, 120));
 
@@ -150,27 +141,57 @@ public class Frame2 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     
+    public void updateStreakText() {
+        jLabel5.setText("POST / DOCUMENT DAY STREAK: " + postStreak);
+        jLabel6.setText("WORKOUT STREAK: " + workoutStreak);
+        jLabel3.setText("STUDY STREAK: " + studyStreak);
+    }
+    
+    public void loadStreak() {
+        int[] streak = FileSaverLevel.loadStreak();
+        postStreak = streak[0];
+        workoutStreak = streak[1];
+        studyStreak = streak[2];
+        System.out.print(postStreak + workoutStreak +studyStreak);
+        
+        updateStreakText();
+    }
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         Frame1 f1 = new Frame1();
         f1.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
-    
+
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        FileSaverLevel.saveStreak((postStreak + 1), workoutStreak, studyStreak);
         Functions.addExp();
         Functions.updateAll(jLabel4, jProgressBar1);
+
+        revalidate();
+        repaint();
+        loadStreak();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        FileSaverLevel.saveStreak(postStreak, (workoutStreak + 1), studyStreak);
         Functions.addExp();
         Functions.updateAll(jLabel4, jProgressBar1);
+
+        revalidate();
+        repaint();
+        loadStreak();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        FileSaverLevel.saveStreak(postStreak, workoutStreak, (studyStreak + 1));
         Functions.addExp();
         Functions.updateAll(jLabel4, jProgressBar1);
+
+        revalidate();
+        repaint();
+        loadStreak();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -208,7 +229,6 @@ public class Frame2 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;

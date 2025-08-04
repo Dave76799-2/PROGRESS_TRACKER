@@ -3,6 +3,7 @@ com\mycompany\level_tracker\Frame4$1.class
 com\mycompany\level_tracker\Frame1.class
 com\mycompany\level_tracker\Frame4$8.class
 com\mycompany\level_tracker\Frame2$3.class
+com\mycompany\level_tracker\AddMissionFrame$2.class
 com\mycompany\level_tracker\Achievement_Frame.class
 com\mycompany\level_tracker\Frame4$3.class
 com\mycompany\level_tracker\Frame4$6.class
@@ -17,6 +18,7 @@ com\mycompany\level_tracker\Frame1$2.class
 com\mycompany\level_tracker\Frame4$7.class
 com\mycompany\level_tracker\Frame2$2.class
 com\mycompany\level_tracker\Frame2.class
+com\mycompany\level_tracker\Frame4$10.class
 com\mycompany\level_tracker\Frame3$2.class
 com\mycompany\level_tracker\Functions.class
 com\mycompany\level_tracker\Frame2$4.class
@@ -29,3 +31,4 @@ com\mycompany\level_tracker\FileSaverLevel.class
 com\mycompany\level_tracker\FileSaver.class
 com\mycompany\level_tracker\Frame2$1.class
 com\mycompany\level_tracker\Frame3$1.class
+com\mycompany\level_tracker\Frame4$9.class

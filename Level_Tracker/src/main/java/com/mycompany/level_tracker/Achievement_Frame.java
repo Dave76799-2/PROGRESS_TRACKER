@@ -11,11 +11,14 @@ import java.util.List;
 public class Achievement_Frame extends javax.swing.JFrame {
 
     private static final String FILE_NAME = "achievement.csv";
-    String[] achievementArray = {"POST.png", "POST.png", "achievement 3", "achievement 4", "achievement 5",
-        "achievement 6", "achievement 7", "achievement 8", "achievement 9"};
+    String[] achievementList = {"Level_10.png", "Level_25.png", "Level_50.png", "Mission_1.png", "Mission_10.png",
+        "Mission_25.png", "achievement 7", "achievement 8", "achievement 9"};
 
-    String[] iconDescription = {"desc 1", "desc 2", "desc 3", "desc 4", "desc 5",
-        "desc 6", "desc 7", "desc 8", "desc 9"};
+    String[] savedAchievementArray = {"Level_10.png", "Level_25.png", "Level_50.png", "Mission_1.png", "Mission_10.png",
+        "Mission_25.png", "achievement 7", "achievement 8", "achievement 9"};
+
+    String[] iconDescription = {"Reach level 10!", "Reach level 25!", "Reach level 50!", "Finished 1 mission!", "Finished 10 missions!",
+        "Finished 25 missions!", "desc 7", "desc 8", "desc 9"};
 
     int iconNum;
 
@@ -28,14 +31,19 @@ public class Achievement_Frame extends javax.swing.JFrame {
     public Achievement_Frame(int num) {
         initComponents();
         List<String> loader = loadAchievement(); //loader for achievements csv
-        achievementArray = loader.toArray(new String[0]);
+        savedAchievementArray = loader.toArray(new String[0]);
+        claimChecker(savedAchievementArray[num]);
         setFrameDisplay(num);
+        if (!checkIfClaimable(iconNum)) {
+            jButton1.setText("Claim");
+            jButton1.setEnabled(false);
+        }
         setLocationRelativeTo(null);
     }
 
     public void setFrameDisplay(int iconNum) {
         this.iconNum = iconNum;
-        String iconAddress = achievementArray[iconNum];
+        String iconAddress = achievementList[iconNum];
 
         jLabel1.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\Images\\" + iconAddress));
         jLabel2.setText(iconDescription[iconNum]);
@@ -120,16 +128,71 @@ public class Achievement_Frame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        achievementArray[iconNum] = "claimed";
-        saveAchievement(achievementArray);
+        savedAchievementArray[iconNum] = "claimed";
+        saveAchievement(savedAchievementArray);
+
+        jButton1.setText("Claimed");
+        jButton1.setEnabled(false);
+        
+        Functions.exp += 5  ;
+        FileSaverLevel.saveExp(Functions.exp);
+        
+        revalidate();
+        repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public static boolean checkIfClaimable(int iconNum) {
+        boolean claimable = false;
+        int missionCount = FileSaverLevel.loadMissionCount();
+        System.out.print(missionCount);
+        switch (iconNum) {
+            case 0:
+                claimable = (Functions.level >= 10);
+                break;
+            case 1:
+                claimable = (Functions.level >= 25);
+                break;
+            case 2:
+                claimable = (Functions.level >= 50);
+                break;
+
+            case 3:
+                claimable = (missionCount > 0);
+                break;
+            case 4:
+                claimable = (missionCount >= 10);
+                break;
+            case 5:
+                claimable = (missionCount >= 25);
+                break;
+
+//            case 6:
+//                claimable = (Functions.other >= X);
+//                break;
+//            case 7:
+//                claimable = (Functions.other >= Y);
+//                break;
+//            case 8:
+//                claimable = (Functions.other >= Z);
+//                break;
+        }
+
+        return claimable;
+    }
+
+    public void claimChecker(String s) {
+        if (s.equals("claimed")) {
+            jButton1.setText("Claimed");
+            jButton1.setEnabled(false);
+        }
+    }
+
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        saveAchievement(achievementArray);
+        saveAchievement(savedAchievementArray);
         Frame4 f4 = new Frame4();
         f4.setVisible(true);
     }//GEN-LAST:event_formWindowClosing

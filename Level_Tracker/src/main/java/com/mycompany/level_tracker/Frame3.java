@@ -11,6 +11,9 @@ public class Frame3 extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Frame2.class.getName());
 
+    static boolean missionAdded = false;
+    static int missionCount = 0;
+
     public Frame3() {
         initComponents();
         jScrollPane2.setViewportView(jPanel2);
@@ -20,12 +23,12 @@ public class Frame3 extends javax.swing.JFrame {
     }
 
     private void loadMissionsFromFile() {
-        jPanel2.removeAll();   
-        missionCount = 0;           
+        jPanel2.removeAll();
+        missionCount = 0;
         for (String mission : FileSaver.loadMissions()) {
             addMissionButton(mission);
         }
-        jPanel2.revalidate();       
+        jPanel2.revalidate();
         jPanel2.repaint();
     }
 
@@ -121,10 +124,8 @@ public class Frame3 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    static boolean missionAdded = false;
-    static int missionCount = 0;
-
     private void addMissionButton(String mission) {
+
         JButton newTask = new JButton(mission);
         newTask.setBackground(new java.awt.Color(255, 255, 204));
         newTask.setFont(new java.awt.Font("Microsoft YaHei", 1, 18));
@@ -135,8 +136,13 @@ public class Frame3 extends javax.swing.JFrame {
         missionCount++;
 
         newTask.addActionListener(e -> {
-            FileSaver.removeMission(mission); 
-            loadMissionsFromFile();  
+            FileSaver.removeMission(mission);
+            loadMissionsFromFile();
+
+            int completedMissions = FileSaverLevel.loadMissionCount();
+            completedMissions++;
+            FileSaverLevel.saveMissionCount(completedMissions);
+
             Functions.exp += 1;
             Functions.updateAll(jLabel4, jProgressBar1);
         });
